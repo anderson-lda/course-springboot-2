@@ -2,10 +2,18 @@ package com.testtwo.course.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class User implements Serializable { 
 	private static final long serialVersionUID = 1L;
 //serializable é usado pra quando os objetos forem transformados em cadeias de bytes, para tráfegos em redes e arquivos
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY) //autopreenchimento: serve pra mysql, h2 e os principais
 	private Long id;
 	private String name;
 	private String email;
