@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tb_product")
@@ -24,7 +26,11 @@ public class Product implements Serializable {
 	private Double price;
 	private String imgUrl;
 	
-	@Transient
+	//@Transient //permite que o jpa não o reconheça (caso o Set não esteja configurado, daria erro)
+	@ManyToMany
+	@JoinTable(name = "tb_product_category", 
+	joinColumns = @JoinColumn(name = "product_id"),
+	inverseJoinColumns = @JoinColumn(name = "category_id")) //já configura para a outra parte também
 	private Set<Category> categories = new HashSet<>(); //conjunto que garante que não haja elementos repetitivos;
 	//ao instanciar, garantimos que a coleção não inicialize nula e sim vazia
 	
